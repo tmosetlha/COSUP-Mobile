@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.CosupLight" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/cosup_green</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryContainer">#E8F5EE</item>
+        <item name="colorOnPrimaryContainer">#0D1F15</item>
+        <item name="colorSecondary">@color/cosup_green_dark</item>
+        <item name="colorSecondaryContainer">#DDF0E3</item>
+        <item name="colorOnSecondaryContainer">#0D1F15</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#0D1F15</item>
+        <item name="colorSurfaceVariant">#EEF6F1</item>
+        <item name="colorOutline">#D0E8D8</item>
+        <item name="android:windowBackground">#F7FAF8</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:textColorPrimary">#0D1F15</item>
+        <item name="android:textColorSecondary">#6B7C72</item>
+        <item name="cosupBg">#F7FAF8</item>
+        <item name="cosupCard">#FFFFFF</item>
+        <item name="cosupText">#0D1F15</item>
+        <item name="cosupMuted">#6B7C72</item>
+        <item name="cosupBorder">#D0E8D8</item>
+        <item name="cosupAlt">#EEF6F1</item>
+        <item name="cosupGreenPale">#E8F5EE</item>
+        <item name="cosupGreenDark">#2D8A30</item>
+    </style>
+
+    <style name="Theme.CosupDark" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/cosup_green</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorPrimaryContainer">#12261A</item>
+        <item name="colorOnPrimaryContainer">#EAF3ED</item>
+        <item name="colorSecondary">@color/cosup_green_bright</item>
+        <item name="colorSecondaryContainer">#16301F</item>
+        <item name="colorOnSecondaryContainer">#EAF3ED</item>
+        <item name="colorSurface">#101C15</item>
+        <item name="colorOnSurface">#EAF3ED</item>
+        <item name="colorSurfaceVariant">#0B1610</item>
+        <item name="colorOutline">#1F3427</item>
+        <item name="android:windowBackground">#080F0B</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:textColorPrimary">#EAF3ED</item>
+        <item name="android:textColorSecondary">#93A79B</item>
+        <item name="cosupBg">#080F0B</item>
+        <item name="cosupCard">#101C15</item>
+        <item name="cosupText">#EAF3ED</item>
+        <item name="cosupMuted">#93A79B</item>
+        <item name="cosupBorder">#1F3427</item>
+        <item name="cosupAlt">#0B1610</item>
+        <item name="cosupGreenPale">#12261A</item>
+        <item name="cosupGreenDark">#7BE07F</item>
+    </style>
+
+</resources>

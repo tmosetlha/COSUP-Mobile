@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cosup_green">#3BA53E</color>
+    <color name="cosup_green_dark">#2D8A30</color>
+    <color name="cosup_green_bright">#58D65C</color>
+    <color name="cosup_dark">#0D1F15</color>
+    <color name="cosup_footer">#0A1810</color>
+    <color name="cosup_red">#E05A3A</color>
+    <color name="cosup_accent">#F0C93A</color>
+</resources>

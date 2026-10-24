@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="cosupBg" format="color" />
+    <attr name="cosupCard" format="color" />
+    <attr name="cosupText" format="color" />
+    <attr name="cosupMuted" format="color" />
+    <attr name="cosupBorder" format="color" />
+    <attr name="cosupAlt" format="color" />
+    <attr name="cosupGreenPale" format="color" />
+    <attr name="cosupGreenDark" format="color" />
+</resources>
