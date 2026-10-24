@@ -1,5 +1,6 @@
 package com.example.cosupv2
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Looper
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -42,7 +44,32 @@ class SplashActivity : AppCompatActivity() {
         spinner.animate().alpha(1f).setStartDelay(1000).setDuration(600).start()
 
         findViewById<View>(R.id.splashRoot).setOnClickListener { goNext() }
-        handler.postDelayed({ goNext() }, 2800)
+
+        val prefs = getSharedPreferences("cosup_crash", Context.MODE_PRIVATE)
+        val crash = prefs.getString("last", null)
+        if (crash != null) {
+            prefs.edit().remove("last").apply()
+            showCrash(crash)
+        } else {
+            handler.postDelayed({ goNext() }, 2800)
+        }
+    }
+
+    /** Shows the error from the last crash so it can be fixed quickly. */
+    private fun showCrash(trace: String) {
+        val lines = trace.lines()
+        val summary = (lines.take(4) +
+                lines.filter { it.startsWith("Caused by") } +
+                listOf("-- COSUP code --") +
+                lines.filter { it.contains("com.example.cosupv2") }.take(8))
+            .joinToString("\n")
+
+        AlertDialog.Builder(this)
+            .setTitle("COSUP crashed last time")
+            .setMessage(summary)
+            .setCancelable(false)
+            .setPositiveButton("Continue") { _, _ -> handler.postDelayed({ goNext() }, 300) }
+            .show()
     }
 
     @Suppress("DEPRECATION")

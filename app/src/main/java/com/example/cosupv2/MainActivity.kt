@@ -1,25 +1,38 @@
 package com.example.cosupv2
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bottomNav: BottomNavigationView
+    private class Tab(val id: Int, val icon: Int, val label: Int)
+
+    private val tabs = listOf(
+        Tab(R.id.nav_home, R.id.nav_home_icon, R.id.nav_home_label),
+        Tab(R.id.nav_services, R.id.nav_services_icon, R.id.nav_services_label),
+        Tab(R.id.nav_find, R.id.nav_find_icon, R.id.nav_find_label),
+        Tab(R.id.nav_news, R.id.nav_news_icon, R.id.nav_news_label),
+        Tab(R.id.nav_more, R.id.nav_more_icon, R.id.nav_more_label)
+    )
+
+    private var current = R.id.nav_home
+    private var dark = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeManager.apply(this)
-        val dark = ThemeManager.isDark(this)
+        dark = ThemeManager.isDark(this)
         val barStyle = if (dark) {
             SystemBarStyle.dark(Color.TRANSPARENT)
         } else {
@@ -30,9 +43,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val root = findViewById<View>(R.id.main)
+        val bottomBar = findViewById<View>(R.id.bottomBar)
+        val basePad = (6 * resources.displayMetrics.density).toInt()
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(0, bars.top, 0, 0)
+            bottomBar.setPadding(0, basePad, 0, basePad + bars.bottom)
             insets
         }
 
@@ -50,20 +66,48 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
 
-        bottomNav = findViewById(R.id.bottomNav)
-        bottomNav.setOnItemSelectedListener { item ->
-            val fragment: Fragment = when (item.itemId) {
-                R.id.nav_home -> HomeFragment()
-                R.id.nav_services -> ComingSoonFragment.newInstance("Services")
-                R.id.nav_find -> ComingSoonFragment.newInstance("Find a Site")
-                R.id.nav_news -> ComingSoonFragment.newInstance("News")
-                else -> ComingSoonFragment.newInstance("More")
-            }
-            show(fragment)
-            true
+        tabs.forEach { tab ->
+            findViewById<View>(tab.id).setOnClickListener { select(tab.id) }
         }
+
+        current = savedInstanceState?.getInt("tab") ?: R.id.nav_home
+        paintTabs()
         if (savedInstanceState == null) {
-            bottomNav.selectedItemId = R.id.nav_home
+            show(fragmentFor(current))
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("tab", current)
+    }
+
+    private fun fragmentFor(id: Int): Fragment = when (id) {
+        R.id.nav_home -> HomeFragment()
+        R.id.nav_services -> ComingSoonFragment.newInstance("Services")
+        R.id.nav_find -> ComingSoonFragment.newInstance("Find a Site")
+        R.id.nav_news -> ComingSoonFragment.newInstance("News")
+        else -> ComingSoonFragment.newInstance("More")
+    }
+
+    private fun select(id: Int) {
+        val showing = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+        if (id == current && showing != null) return
+        current = id
+        paintTabs()
+        show(fragmentFor(id))
+    }
+
+    private fun paintTabs() {
+        val green = ContextCompat.getColor(this, R.color.cosup_green)
+        val muted = Color.parseColor(if (dark) "#93A79B" else "#6B7C72")
+        tabs.forEach { tab ->
+            val color = if (tab.id == current) green else muted
+            findViewById<ImageView>(tab.icon).setColorFilter(color)
+            findViewById<TextView>(tab.label).apply {
+                setTextColor(color)
+                setTypeface(null, if (tab.id == current) Typeface.BOLD else Typeface.NORMAL)
+            }
         }
     }
 
@@ -77,6 +121,6 @@ class MainActivity : AppCompatActivity() {
 
     /** Lets a screen jump to another tab, for example Home -> Find a Site. */
     fun openTab(itemId: Int) {
-        bottomNav.selectedItemId = itemId
+        select(itemId)
     }
 }
