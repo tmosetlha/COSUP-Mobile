@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/authRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/cosupBg">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/authClose"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="end"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Close"
+                android:src="@drawable/ic_close" />
+
+            <ImageView
+                android:id="@+id/authLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:contentDescription="COSUP logo" />
+
+                <TextView
+                    android:id="@+id/authTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Welcome to COSUP"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+                <TextView
+                    android:id="@+id/authSub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Free and confidential. Sign in or create an account."
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="15sp"
+                    android:gravity="center" />
+
+            <TextView
+                android:id="@+id/errorBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:padding="12dp"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <!-- MAIN PANEL: tabs, social, forms -->
+            <LinearLayout
+                android:id="@+id/panelMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_tabs"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/tabSignin"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Sign in"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tabRegister"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Register"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoogle"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Continue with Google"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="15sp"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="@color/cosup_green" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnYahoo"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Continue with Yahoo"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="15sp"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="@color/cosup_green" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMicrosoft"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Continue with Microsoft"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="15sp"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="@color/cosup_green" />
+                <TextView
+                    android:id="@+id/orEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="or use your email"
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="13sp"
+                    android:gravity="center" />
+
+                <!-- SIGN IN FORM -->
+                <LinearLayout
+                    android:id="@+id/formSignin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/siEmail"
+                    style="@style/CosupInput"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+                <EditText
+                    android:id="@+id/siPassword"
+                    style="@style/CosupInput"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSignin"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Sign in"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/cosup_green"
+                    app:cornerRadius="26dp" />
+                <TextView
+                    android:id="@+id/tvForgot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Forgot password?"
+                    android:textColor="#2D8A30"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+                </LinearLayout>
+
+                <!-- REGISTER FORM -->
+                <LinearLayout
+                    android:id="@+id/formRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/rgFirst"
+                    style="@style/CosupInput"
+                    android:hint="First name"
+                    android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/rgLast"
+                    style="@style/CosupInput"
+                    android:hint="Last name"
+                    android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/rgPhone"
+                    style="@style/CosupInput"
+                    android:hint="Phone (optional)"
+                    android:inputType="phone" />
+                <EditText
+                    android:id="@+id/rgEmail"
+                    style="@style/CosupInput"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+                <EditText
+                    android:id="@+id/rgPassword"
+                    style="@style/CosupInput"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ProgressBar
+                        android:id="@+id/pwBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/pwLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/pwHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Use 8 or more characters with upper and lower case letters, a number and a symbol."
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="12sp" />
+                <EditText
+                    android:id="@+id/rgConfirm"
+                    style="@style/CosupInput"
+                    android:hint="Confirm password"
+                    android:inputType="textPassword" />
+                <TextView
+                    android:id="@+id/pwMatch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <CheckBox
+                    android:id="@+id/rgConsent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="I accept the POPIA consent for my information to be processed by COSUP."
+                    android:textColor="?attr/cosupText"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Create account"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/cosup_green"
+                    app:cornerRadius="26dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuestOpen"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Continue as guest"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="15sp"
+                    app:cornerRadius="26dp"
+                    app:strokeColor="@color/cosup_green" />
+                <TextView
+                    android:id="@+id/popiaNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="By continuing with Google, Yahoo or Microsoft you accept the POPIA consent."
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="12sp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- FORGOT PASSWORD PANEL -->
+            <LinearLayout
+                android:id="@+id/panelForgot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/fpTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Reset your password"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/fpText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Enter the email you registered with and we will send you a link to choose a new password."
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/fpEmail"
+                    style="@style/CosupInput"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSendReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Send reset link"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/cosup_green"
+                    app:cornerRadius="26dp" />
+                <TextView
+                    android:id="@+id/tvForgotBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="← Back to sign in"
+                    android:textColor="#2D8A30"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+
+            <!-- GUEST PANEL -->
+            <LinearLayout
+                android:id="@+id/panelGuest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/gsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Continue as guest"
+                    android:textColor="?attr/cosupText"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/gsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="No account needed. Choose a name to use in the app. We save your activity under that name, not your real name."
+                    android:textColor="?attr/cosupMuted"
+                    android:textSize="14sp" />
+                <EditText
+                    android:id="@+id/gsName"
+                    style="@style/CosupInput"
+                    android:hint="Your guest name, for example Sunny"
+                    android:inputType="textPersonName"
+                    android:maxLength="30" />
+                <CheckBox
+                    android:id="@+id/gsConsent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="I understand COSUP will save my activity in this app under this name."
+                    android:textColor="?attr/cosupText"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGuestGo"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="14dp"
+                    android:text="Continue as guest"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:backgroundTint="@color/cosup_green"
+                    app:cornerRadius="26dp" />
+                <TextView
+                    android:id="@+id/tvGuestBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="← Back to sign in"
+                    android:textColor="#2D8A30"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/authProgress"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/cosup_green"
+        android:visibility="gone" />
+</FrameLayout>

@@ -1,5 +1,6 @@
 package com.example.cosupv2
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,11 +10,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private var current = R.id.nav_home
     private var dark = false
+
+    private val authLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { refreshAvatar() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeManager.apply(this)
@@ -66,6 +73,9 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
 
+        findViewById<View>(R.id.avatarBtn).setOnClickListener { onAvatarClick() }
+        refreshAvatar()
+
         tabs.forEach { tab ->
             findViewById<View>(tab.id).setOnClickListener { select(tab.id) }
         }
@@ -81,6 +91,50 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putInt("tab", current)
     }
+
+    // ---------- account button ----------
+
+    private fun refreshAvatar() {
+        val name = SessionStore.name(this)
+        val icon = findViewById<View>(R.id.avatarIcon)
+        val initials = findViewById<TextView>(R.id.avatarInitials)
+        if (name == null) {
+            icon.visibility = View.VISIBLE
+            initials.visibility = View.GONE
+        } else {
+            val letters = name.split(" ").filter { it.isNotBlank() }.take(2)
+                .joinToString("") { it.first().uppercase() }
+            initials.text = letters.ifEmpty { "U" }
+            icon.visibility = View.GONE
+            initials.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onAvatarClick() {
+        val name = SessionStore.name(this)
+        if (name == null) {
+            authLauncher.launch(Intent(this, AuthActivity::class.java))
+            return
+        }
+        val role = SessionStore.role(this)
+        val detail = buildString {
+            if (role == "guest") append("Browsing as a guest") else append(SessionStore.email(this@MainActivity) ?: "Signed in")
+        }
+        AlertDialog.Builder(this)
+            .setTitle(name)
+            .setMessage(detail)
+            .setPositiveButton(if (role == "guest") "End guest session" else "Sign out") { _, _ ->
+                if (Config.firebaseReady) {
+                    try { FirebaseAuth.getInstance().signOut() } catch (e: Exception) { /* ignore */ }
+                }
+                SessionStore.clear(this)
+                refreshAvatar()
+            }
+            .setNegativeButton("Close", null)
+            .show()
+    }
+
+    // ---------- tabs ----------
 
     private fun fragmentFor(id: Int): Fragment = when (id) {
         R.id.nav_home -> HomeFragment()

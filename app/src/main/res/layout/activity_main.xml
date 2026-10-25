@@ -17,15 +17,15 @@
         android:elevation="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="14dp"
+        android:paddingStart="12dp"
         android:paddingTop="8dp"
-        android:paddingEnd="10dp"
+        android:paddingEnd="8dp"
         android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/logoView"
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:adjustViewBounds="true"
             android:contentDescription="COSUP logo" />
 
@@ -37,21 +37,50 @@
         <ImageView
             android:id="@+id/hopelineBtn"
             android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Call the COSUP Hopeline on 0800 611 197" />
 
         <ImageButton
             android:id="@+id/themeBtn"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:background="@drawable/bg_toggle_sun"
             android:contentDescription="Switch between light and dark mode"
-            android:padding="11dp"
+            android:padding="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_sun" />
+
+        <FrameLayout
+            android:id="@+id/avatarBtn"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_avatar"
+            android:clickable="true"
+            android:contentDescription="Sign in or open your account"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/avatarIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_person" />
+
+            <TextView
+                android:id="@+id/avatarInitials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView
