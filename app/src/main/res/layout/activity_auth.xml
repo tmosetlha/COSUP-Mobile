@@ -102,6 +102,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoogle"
+                    app:icon="@drawable/ic_google"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@null"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -114,6 +119,11 @@
                     app:strokeColor="@color/cosup_green" />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnYahoo"
+                    app:icon="@drawable/ic_yahoo"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@null"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
@@ -126,6 +136,11 @@
                     app:strokeColor="@color/cosup_green" />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMicrosoft"
+                    app:icon="@drawable/ic_microsoft"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:iconSize="22dp"
+                    app:iconTint="@null"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
