@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
 
-        findViewById<View>(R.id.avatarBtn).setOnClickListener { onAvatarClick() }
+        findViewById<View>(R.id.avatarBtn).setOnClickListener { openAccount() }
         refreshAvatar()
 
         tabs.forEach { tab ->
@@ -85,6 +86,11 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             show(fragmentFor(current))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshAvatar()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -110,16 +116,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onAvatarClick() {
+    /** Opens the sign-in screen, or the account box if someone is already signed in. */
+    fun openAccount() {
         val name = SessionStore.name(this)
         if (name == null) {
             authLauncher.launch(Intent(this, AuthActivity::class.java))
             return
         }
         val role = SessionStore.role(this)
-        val detail = buildString {
-            if (role == "guest") append("Browsing as a guest") else append(SessionStore.email(this@MainActivity) ?: "Signed in")
-        }
+        val detail = if (role == "guest") "Browsing as a guest" else (SessionStore.email(this) ?: "Signed in")
         AlertDialog.Builder(this)
             .setTitle(name)
             .setMessage(detail)
@@ -138,15 +143,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun fragmentFor(id: Int): Fragment = when (id) {
         R.id.nav_home -> HomeFragment()
-        R.id.nav_services -> ComingSoonFragment.newInstance("Services")
-        R.id.nav_find -> ComingSoonFragment.newInstance("Find a Site")
-        R.id.nav_news -> ComingSoonFragment.newInstance("News")
-        else -> ComingSoonFragment.newInstance("More")
+        R.id.nav_services -> ServicesFragment()
+        R.id.nav_find -> FindSiteFragment()
+        R.id.nav_news -> NewsFragment()
+        else -> MoreFragment()
     }
 
     private fun select(id: Int) {
-        val showing = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-        if (id == current && showing != null) return
+        if (id == current && supportFragmentManager.findFragmentById(R.id.fragmentContainer) != null) {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            return
+        }
         current = id
         paintTabs()
         show(fragmentFor(id))
@@ -166,10 +173,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun show(fragment: Fragment) {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         supportFragmentManager.beginTransaction()
             .setReorderingAllowed(true)
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .replace(R.id.fragmentContainer, fragment)
+            .commit()
+    }
+
+    /** Opens a screen on top of the current tab. The back button returns to the tab. */
+    fun openScreen(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
             .commit()
     }
 

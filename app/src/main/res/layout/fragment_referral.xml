@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GET HELP"
+            android:textColor="?attr/cosupGreenDark"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Self-referral form"
+            android:textColor="?attr/cosupText"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="A COSUP caseworker will contact you. You can also call the Hopeline on 0800 611 197."
+            android:textColor="?attr/cosupMuted"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/refMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/refName"
+            style="@style/CosupInput"
+            android:hint="Full name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/refPhone"
+            style="@style/CosupInput"
+            android:hint="Contact number"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/refEmail"
+            style="@style/CosupInput"
+            android:hint="Email (optional)"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Preferred site"
+            android:textColor="?attr/cosupText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/refSite"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_input"
+            android:paddingStart="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Service needed"
+            android:textColor="?attr/cosupText"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/refService"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_input"
+            android:paddingStart="8dp" />
+
+        <EditText
+            android:id="@+id/refMessage"
+            style="@style/CosupInput"
+            android:layout_height="110dp"
+            android:gravity="top"
+            android:hint="Message (optional)"
+            android:inputType="textMultiLine"
+            android:maxLines="6"
+            android:paddingTop="12dp" />
+
+        <CheckBox
+            android:id="@+id/refConsent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="I accept the POPIA consent for COSUP to process my information."
+            android:textColor="?attr/cosupText"
+            android:textSize="13sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/refSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="14dp"
+            android:text="Submit referral"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:backgroundTint="@color/cosup_green"
+            app:cornerRadius="27dp" />
+    </LinearLayout>
+</ScrollView>
